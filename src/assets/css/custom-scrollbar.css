@@ -1,0 +1,17 @@
+/* Para navegadores Webkit (Chrome, Edge, etc.) */
+.react-kanban-scroll::-webkit-scrollbar {
+  height: 8px; /* menos alto = más delgada horizontalmente */
+}
+
+.react-kanban-scroll::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.react-kanban-scroll::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.react-kanban-scroll::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -1,0 +1,51 @@
+/* Columnas */
+.react-kanban-column {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+  margin-right: 16px;
+  min-width: 280px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Título de columna */
+.react-kanban-column-header {
+  font-family: "Roboto", sans-serif;
+  font-weight: 600;
+  color: #5e72e4;
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+/* Tarjetas */
+.react-kanban-card {
+  background: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 6px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #344767;
+  transition: transform 0.2s ease;
+}
+
+.react-kanban-card:hover {
+  transform: scale(1.02);
+}
+
+/* Título de tarjeta */
+.react-kanban-card__title {
+  font-weight: 600;
+  margin-bottom: 4px;
+  display: flex;
+  justify-content: space-between;
+  color: #5e72e4;
+}
+
+/* Descripción de tarjeta */
+.react-kanban-card__description {
+  color: #6c757d;
+  font-size: 13px;
+}

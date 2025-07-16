@@ -46,7 +46,6 @@ import SignIn from "layouts/authentication/sign-in";
 import SignUp from "layouts/authentication/sign-up";
 import KanbanBoard from "views/KanbanBoard.jsx";
 
-
 // @mui icons
 import Icon from "@mui/material/Icon";
 
@@ -116,12 +115,12 @@ const routes = [
     component: <SignUp />,
   },
   {
-  type: "collapse",
-  name: "Kanban",
-  key: "kanban",
-  icon: <Icon fontSize="small">dashboard</Icon>,
-  route: "/kanban",
-  component: <KanbanBoard />,
+    type: "collapse",
+    name: "Kanban",
+    key: "kanban",
+    icon: <Icon fontSize="small">dashboard</Icon>,
+    route: "/kanban",
+    component: <KanbanBoard />,
   },
 ];
 
