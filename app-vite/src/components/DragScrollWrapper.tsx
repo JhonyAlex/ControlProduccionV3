@@ -1,5 +1,8 @@
 import React, { useRef } from "react";
-import PropTypes from "prop-types";
+
+interface DragScrollWrapperProps {
+  children: React.ReactNode;
+}
 
 /**
  * DragScrollWrapper
@@ -9,19 +12,19 @@ import PropTypes from "prop-types";
  * @param {object} props - Children dentro del wrapper.
  * @returns JSX.Element
  */
-export default function DragScrollWrapper({ children }) {
-  const scrollRef = useRef(null);
+export default function DragScrollWrapper({ children }: DragScrollWrapperProps) {
+  const scrollRef = useRef<HTMLDivElement | null>(null);
   let isDown = false;
-  let startX;
-  let scrollLeft;
+  let startX: number;
+  let scrollLeft: number;
 
-  const isExcluded = (target) => {
+  const isExcluded = (target: HTMLElement) => {
     // Devuelve true si hiciste click sobre columna o card
     return target.closest(".react-kanban-column-header") || target.closest(".react-kanban-card");
   };
 
-  const handleMouseDown = (e) => {
-    if (isExcluded(e.target)) {
+  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isExcluded(e.target as HTMLElement)) {
       // No activar drag-scroll si hiciste click sobre columna/card
       return;
     }
@@ -41,7 +44,7 @@ export default function DragScrollWrapper({ children }) {
     scrollRef.current.classList.remove("active");
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
@@ -66,7 +69,3 @@ export default function DragScrollWrapper({ children }) {
     </div>
   );
 }
-
-DragScrollWrapper.propTypes = {
-  children: PropTypes.node.isRequired,
-};
