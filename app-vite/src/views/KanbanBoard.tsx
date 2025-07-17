@@ -1,88 +1,171 @@
-import React from "react";
+import React, { useState } from "react";
 
-// --- INICIO DE SECCIÓN AISLADA ---
-// Estas interfaces y la lógica del tablero dependen de la librería obsoleta.
-// Las comentamos para evitar errores de compilación.
+// ¡La nueva estrella! Importamos los componentes de @hello-pangea/dnd
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
-/*
-interface Card {
-  id: number;
+// Importaciones de tu sistema de diseño (se mantienen igual)
+import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "examples/Navbars/DashboardNavbar";
+import MDBox from "components/MDBox";
+import MDTypography from "components/MDTypography";
+import MDButton from "components/MDButton";
+import Card from "@mui/material/Card";
+
+// Estructuras de datos (las mismas que tenías, ¡perfecto!)
+interface CardData {
+  id: string; // Es mejor usar strings para los IDs en D&D
   title: string;
   description?: string;
 }
 
-interface Column {
-  id: number;
+interface ColumnData {
+  id: string;
   title: string;
-  cards: Card[];
+  cards: CardData[];
 }
 
-interface BoardType {
-  columns: Column[];
+interface BoardData {
+  [key: string]: ColumnData; // Usamos un objeto para un acceso más fácil por ID
 }
-*/
 
-// --- FIN DE SECCIÓN AISLADA ---
-
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
-import DashboardNavbar from "examples/Navbars/DashboardNavbar";
-import MDBox from "../components/MDBox";
-import MDTypography from "../components/MDTypography";
-
-// --- INICIO DE IMPORTACIONES OBSOLETAS ---
-// Comentamos las importaciones de la librería que hemos decidido no instalar.
-// import Board from "@lourenci/react-kanban";
-// import DragScrollWrapper from "../components/DragScrollWrapper";
-// import "@lourenci/react-kanban/dist/styles.css";
-// --- FIN DE IMPORTACIONES OBSOLETAS ---
-
-import "assets/css/custom-scrollbar.css"; // Este es un estilo general, puede quedarse.
+// Datos iniciales del tablero (adaptados a los nuevos tipos)
+const initialBoard: BoardData = {
+  "columna-impresion": {
+    id: "columna-impresion",
+    title: "Impresión",
+    cards: [
+      { id: "card-1", title: "Pedido #1234", description: "Cliente: ACME, Metros: 500" },
+      { id: "card-2", title: "Pedido #5678", description: "Cliente: Stark Ind, Metros: 1200" },
+    ],
+  },
+  "columna-laminado": {
+    id: "columna-laminado",
+    title: "Laminado",
+    cards: [],
+  },
+  "columna-corte": {
+    id: "columna-corte",
+    title: "Corte",
+    cards: [],
+  },
+};
 
 export default function KanbanBoard() {
-  // --- INICIO DE LÓGICA OBSOLETA ---
-  // Comentamos la creación del tablero, ya que depende de las interfaces y la librería.
-  /*
-  const board: BoardType = {
-    columns: [
-      {
-        id: 1,
-        title: "Impresión",
-        cards: [
-          {
-            id: 1,
-            title: "Pedido #1234",
-            description: "Cliente: ACME, Metros: 500",
-          },
-        ],
-      },
-      {
-        id: 2,
-        title: "Laminado",
-        cards: [],
-      },
-      {
-        id: 3,
-        title: "Corte",
-        cards: [],
-      },
-    ],
-  };
-  */
-  // --- FIN DE LÓGICA OBSOLETA ---
+  const [board, setBoard] = useState<BoardData>(initialBoard);
 
-  // Reemplazamos el renderizado original con un marcador de posición claro.
-  // Esto asegura que la página siga funcionando dentro del layout de la aplicación.
+  // La función MÁGICA: se ejecuta cuando sueltas una tarjeta.
+  const onDragEnd = (result) => {
+    const { source, destination, draggableId } = result;
+
+    // 1. Si se suelta fuera de una columna, no hacemos nada.
+    if (!destination) {
+      return;
+    }
+
+    // 2. Si se suelta en la misma posición, no hacemos nada.
+    if (source.droppableId === destination.droppableId && source.index === destination.index) {
+      return;
+    }
+
+    const startColumn = board[source.droppableId];
+    const endColumn = board[destination.droppableId];
+
+    // 3. Mover dentro de la misma columna
+    if (startColumn === endColumn) {
+      const newCards = Array.from(startColumn.cards);
+      const [removed] = newCards.splice(source.index, 1);
+      newCards.splice(destination.index, 0, removed);
+
+      const newColumn = {
+        ...startColumn,
+        cards: newCards,
+      };
+
+      setBoard({
+        ...board,
+        [newColumn.id]: newColumn,
+      });
+      return;
+    }
+
+    // 4. Mover entre columnas diferentes
+    const startCards = Array.from(startColumn.cards);
+    const [removed] = startCards.splice(source.index, 1);
+    const newStartColumn = {
+      ...startColumn,
+      cards: startCards,
+    };
+
+    const endCards = Array.from(endColumn.cards);
+    endCards.splice(destination.index, 0, removed);
+    const newEndColumn = {
+      ...endColumn,
+      cards: endCards,
+    };
+
+    setBoard({
+      ...board,
+      [newStartColumn.id]: newStartColumn,
+      [newEndColumn.id]: newEndColumn,
+    });
+  };
+
   return (
     <DashboardLayout>
       <DashboardNavbar />
-      <MDBox pt={6} pb={3}>
-        <MDTypography variant="h2" component="h1" gutterBottom>
-          Kanban (En Mantenimiento)
+      <MDBox mt={3} px={2}>
+        <MDTypography variant="h5" gutterBottom>
+          Tablero Kanban 2.0
         </MDTypography>
-        <MDTypography variant="body1">
-          Esta funcionalidad se restaurará próximamente con una librería moderna
-          compatible con React 18.
-        </MDTypography>
+        {/* El contexto general que maneja todo el estado del D&D */}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <MDBox display="flex" gap={2} alignItems="flex-start">
+            {Object.values(board).map((column) => (
+              // Cada columna es una zona "Droppable"
+              <Droppable key={column.id} droppableId={column.id}>
+                {(provided, snapshot) => (
+                  <MDBox
+                    ref={provided.innerRef}
+                    {...provided.droppableProps}
+                    sx={{
+                      backgroundColor: snapshot.isDraggingOver ? "action.hover" : "grey.200",
+                      padding: 2,
+                      borderRadius: 1,
+                      width: 300,
+                      minHeight: 500,
+                    }}
+                  >
+                    <MDTypography variant="h6">{column.title}</MDTypography>
+                    {column.cards.map((card, index) => (
+                      // Cada tarjeta es un elemento "Draggable"
+                      <Draggable key={card.id} draggableId={card.id} index={index}>
+                        {(provided, snapshot) => (
+                          <MDBox
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            mb={1.5}
+                          >
+                            <Card
+                              sx={{
+                                padding: 2,
+                                boxShadow: snapshot.isDragging ? "0px 5px 15px rgba(0,0,0,0.3)" : "default",
+                              }}
+                            >
+                              <MDTypography variant="subtitle2">{card.title}</MDTypography>
+                              <MDTypography variant="body2">{card.description}</MDTypography>
+                            </Card>
+                          </MDBox>
+                        )}
+                      </Draggable>
+                    ))}
+                    {provided.placeholder} {/* Espacio reservado para la tarjeta mientras se arrastra */}
+                  </MDBox>
+                )}
+              </Droppable>
+            ))}
+          </MDBox>
+        </DragDropContext>
       </MDBox>
     </DashboardLayout>
   );

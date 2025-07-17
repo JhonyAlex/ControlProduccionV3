@@ -24,10 +24,7 @@ import Notifications from "./layouts/notifications";
 import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
-// --- INICIO DE AISLAMIENTO DE RUTA ---
-// Comentamos la importación del componente que hemos puesto en mantenimiento.
-// import KanbanBoard from "./views/KanbanBoard";
-// --- FIN DE AISLAMIENTO DE RUTA ---
+ import KanbanBoard from "./views/KanbanBoard";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -97,20 +94,16 @@ const routes = [
     route: "/authentication/sign-up",
     component: <SignUp />,
   },
-  // --- INICIO DE AISLAMIENTO DE RUTA ---
-  // Comentamos el objeto de ruta completo para que no aparezca en el menú
-  // lateral (Sidenav) y para que el router no intente procesarlo.
-  /*
+  
   {
     type: "collapse",
     name: "Kanban",
     key: "kanban",
-    icon: <Icon fontSize="small">dashboard</Icon>,
+    icon: <Icon fontSize="small">dashboard</Icon>, // Puedes cambiar el ícono si quieres
     route: "/kanban",
     component: <KanbanBoard />,
   },
-  */
-  // --- FIN DE AISLAMIENTO DE RUTA ---
+
 ];
 
 export default routes;
