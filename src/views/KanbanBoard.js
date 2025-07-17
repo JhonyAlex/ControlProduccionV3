@@ -1,20 +1,4 @@
 import React from "react";
-
-interface Card {
-  id: number;
-  title: string;
-  description?: string;
-}
-
-interface Column {
-  id: number;
-  title: string;
-  cards: Card[];
-}
-
-interface BoardType {
-  columns: Column[];
-}
 import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDBox from "../components/MDBox";
@@ -25,7 +9,7 @@ import "@lourenci/react-kanban/dist/styles.css";
 import "assets/css/custom-scrollbar.css";
 
 export default function KanbanBoard() {
-  const board: BoardType = {
+  const board = {
     columns: [
       {
         id: 1,
