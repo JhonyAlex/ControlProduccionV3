@@ -24,7 +24,7 @@ import Notifications from "./layouts/notifications";
 import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
- import KanbanBoard from "./views/KanbanBoard";
+ import KanbanBoard from "./layouts/kanban/KanbanBoard";
 
 // @mui icons
 import Icon from "@mui/material/Icon";
@@ -37,6 +37,15 @@ const routes = [
     icon: <Icon fontSize="small">dashboard</Icon>,
     route: "/dashboard",
     component: <Dashboard />,
+  },
+  
+  {
+    type: "collapse",
+    name: "Producción Actual",
+    key: "kanban",
+    icon: <Icon fontSize="small">dashboard</Icon>, // Puedes cambiar el ícono si quieres
+    route: "/kanban",
+    component: <KanbanBoard />,
   },
   {
     type: "collapse",
@@ -95,15 +104,6 @@ const routes = [
     component: <SignUp />,
   },
   
-  {
-    type: "collapse",
-    name: "Kanban",
-    key: "kanban",
-    icon: <Icon fontSize="small">dashboard</Icon>, // Puedes cambiar el ícono si quieres
-    route: "/kanban",
-    component: <KanbanBoard />,
-  },
-
 ];
 
 export default routes;

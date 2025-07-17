@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 
 // Importaciones de tu sistema de diseño (se mantienen igual)
-import DashboardLayout from "examples/LayoutContainers/DashboardLayout";
+// Update the import path to the correct location of DashboardLayout
+import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
 import DashboardNavbar from "examples/Navbars/DashboardNavbar";
 import MDBox from "components/MDBox";
 import MDTypography from "components/MDTypography";
@@ -55,7 +56,7 @@ export default function KanbanBoard() {
 
   // La función MÁGICA: se ejecuta cuando sueltas una tarjeta.
   const onDragEnd = (result) => {
-    const { source, destination, draggableId } = result;
+    const { source, destination } = result;
 
     // 1. Si se suelta fuera de una columna, no hacemos nada.
     if (!destination) {
