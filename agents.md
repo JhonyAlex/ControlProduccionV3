@@ -6,17 +6,14 @@
 
 - Frontend: React 18
 - Base: [Material Dashboard React](https://github.com/creativetimofficial/material-dashboard-react)
-
   - Versión: 2.2.0
   - Librerías:
-
     - `@mui/material@5.12.3`
     - `@mui/icons-material@5.11.16`
 
 - Kanban: `@lourenci/react-kanban`
 - Drag Scroll: componente custom propio
 - CSS Customizado:
-
   - custom-scrollbar.css
   - custom-kanban.css
 
@@ -46,12 +43,10 @@ Esto es clave para garantizar continuidad y coherencia en el trabajo, tanto para
 
 - Usa `react-kanban`
 - Responsive:
-
   - Se adapta al ancho visible del dashboard
   - Scroll horizontal si hay muchas columnas
 
 - Drag scroll implementado:
-
   - Wrapper custom `DragScrollWrapper`
   - Evita conflictos con drag & drop interno del Kanban
 
@@ -63,7 +58,6 @@ Archivo: `src/components/DragScrollWrapper.jsx`
 
 - Permite scroll horizontal arrastrando con el mouse
 - Excluye drag en:
-
   - `.react-kanban-column-header`
   - `.react-kanban-card`
 
@@ -86,14 +80,11 @@ Archivo: `src/components/DragScrollWrapper.jsx`
 ### custom-kanban.css
 
 - Integra el diseño de Kanban con Material Dashboard React:
-
   - Columnas:
-
     - fondo gris claro
     - color de título primario (#5e72e4)
 
   - Tarjetas:
-
     - fondo blanco
     - bordes suaves
     - tipografía Roboto
@@ -117,12 +108,10 @@ Archivo: `src/components/DragScrollWrapper.jsx`
 ## **Pendiente**
 
 - Integrar Firebase:
-
   - Auth
   - Firestore → reemplazar datos mock del Kanban
 
 - Reportes:
-
   - Charts (Chart.js o Recharts)
   - Exportación PDF/Excel
 
@@ -134,15 +123,12 @@ Archivo: `src/components/DragScrollWrapper.jsx`
 ## **Notas de implementación**
 
 - Para el Kanban:
-
   - No meterlo en `Card` → usar `DashboardLayout` y `MDBox`
 
 - Drag scroll:
-
   - Implementado manualmente, sin librerías externas
 
 - Prettier:
-
   - Ejecutar:
 
     ```
@@ -184,3 +170,10 @@ npm start
 - Se instaló el componente `sidebar` de shadcn/ui en `src/components/ui`.
 - Se actualizó `src/index.js` para importar `index.css`.
 - Ejecutar `npm install` después de clonar el repositorio para instalar las nuevas dependencias.
+
+## 2025-07-17 Migración inicial a TypeScript y pruebas
+- Se actualizó `tailwind.config.js` para que Tailwind escanee `app-vite/src`.
+- `DragScrollWrapper.jsx` y `views/KanbanBoard.jsx` se migraron a TypeScript.
+- Se añadió configuración de Vitest (`vitest.config.ts`) y un test básico de `DragScrollWrapper`.
+- Se agregaron dependencias de testing en `app-vite/package.json` (`vitest`, `@testing-library/react`, `@testing-library/jest-dom`, `jsdom`).
+- Ejecutar `npm install` y `npm run test` dentro de `app-vite` para validar.
