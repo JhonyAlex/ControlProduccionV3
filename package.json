@@ -35,7 +35,6 @@
     "react-dom": "18.2.0",
     "react-github-btn": "1.4.0",
     "react-router-dom": "6.11.0",
-    "react-scripts": "^5.0.1",
     "react-table": "7.8.0",
     "stylis": "4.1.4",
     "stylis-plugin-rtl": "2.1.1",
@@ -44,11 +43,10 @@
     "yup": "1.1.1"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject",
-    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm run dev"
   },
   "eslintConfig": {
     "extends": [
@@ -69,7 +67,7 @@
     ]
   },
   "devDependencies": {
-    "@craco/craco": "^7.1.0",
+    "@vitejs/plugin-react": "^4.6.0",
     "@tailwindcss/postcss": "^4.1.11",
     "ajv": "^7.2.4",
     "autoprefixer": "^10.4.21",
@@ -82,7 +80,8 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "postcss": "^8.5.6",
     "prettier": "2.8.8",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "vite": "^5.0.0"
   },
   "overrides": {
     "svgo": "3.0.2"

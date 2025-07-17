@@ -1,9 +1,5 @@
 import React, { useRef } from "react";
 
-interface DragScrollWrapperProps {
-  children: React.ReactNode;
-}
-
 /**
  * DragScrollWrapper
  * Permite desplazamiento horizontal arrastrando con el mouse,
@@ -12,19 +8,19 @@ interface DragScrollWrapperProps {
  * @param {object} props - Children dentro del wrapper.
  * @returns JSX.Element
  */
-export default function DragScrollWrapper({ children }: DragScrollWrapperProps) {
-  const scrollRef = useRef<HTMLDivElement | null>(null);
+export default function DragScrollWrapper({ children }) {
+  const scrollRef = useRef(null);
   let isDown = false;
-  let startX: number;
-  let scrollLeft: number;
+  let startX;
+  let scrollLeft;
 
-  const isExcluded = (target: HTMLElement) => {
+  const isExcluded = (target) => {
     // Devuelve true si hiciste click sobre columna o card
     return target.closest(".react-kanban-column-header") || target.closest(".react-kanban-card");
   };
 
-  const handleMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isExcluded(e.target as HTMLElement)) {
+  const handleMouseDown = (e) => {
+    if (isExcluded(e.target)) {
       // No activar drag-scroll si hiciste click sobre columna/card
       return;
     }
@@ -44,7 +40,7 @@ export default function DragScrollWrapper({ children }: DragScrollWrapperProps) 
     scrollRef.current.classList.remove("active");
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleMouseMove = (e) => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;

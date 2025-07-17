@@ -23,7 +23,7 @@ import { MaterialUIControllerProvider } from "./context";
 import "assets/css/custom-scrollbar.css";
 import "./index.css";
 
-const container = document.getElementById("app");
+const container = document.getElementById("root");
 const root = createRoot(container);
 import "assets/css/custom-kanban.css";
 
