@@ -1,13 +1,23 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Control Producción V3</title>
+    <title>Control de Producción</title>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- 
+      ESTE ES EL PUNTO DE ANCLAJE. 
+      El ID aquí ("app") debe coincidir EXACTAMENTE con el ID
+      usado en document.getElementById('app') en tu index.jsx
+    -->
+    <div id="app"></div>
+
+    <!-- 
+      Este script es el punto de entrada a tu aplicación de React.
+      Vite lo inyectará y manejará automáticamente.
+    -->
+    <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
