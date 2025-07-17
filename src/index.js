@@ -21,6 +21,7 @@ import App from "App";
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
 import "assets/css/custom-scrollbar.css";
+import "./index.css";
 
 const container = document.getElementById("app");
 const root = createRoot(container);
