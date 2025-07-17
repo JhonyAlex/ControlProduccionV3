@@ -24,6 +24,7 @@
     "react-github-btn": "^1.4.0",
     "react-router-dom": "^7.7.0",
     "react-table": "^7.8.0",
+    "regenerator-runtime": "^0.14.1",
     "stylis-plugin-rtl": "^2.1.1"
   },
   "devDependencies": {
