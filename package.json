@@ -70,6 +70,7 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@tailwindcss/postcss": "^4.1.11",
     "ajv": "^7.2.4",
     "autoprefixer": "^10.4.21",
     "eslint": "8.39.0",
