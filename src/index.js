@@ -18,6 +18,9 @@ import { createRoot } from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "App";
 
+// Tailwind CSS and shadcn/ui styles
+import "./index.css";
+
 // Material Dashboard 2 React Context Provider
 import { MaterialUIControllerProvider } from "context";
 import "assets/css/custom-scrollbar.css";
